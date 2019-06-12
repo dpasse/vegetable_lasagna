@@ -1,1 +1,1 @@
-# spinach_lasagna
+# vegetable_lasagna
