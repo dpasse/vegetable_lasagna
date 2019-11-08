@@ -1,7 +1,7 @@
 import re
 
 
-class IntegerToBinaryString:
+class IntegerToBinaryString():
     
     expected_output_length = -1
     

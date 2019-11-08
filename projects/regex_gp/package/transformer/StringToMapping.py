@@ -1,4 +1,4 @@
-class StringToMapping:
+class StringToMapping():
     
     mapping = {}
     
