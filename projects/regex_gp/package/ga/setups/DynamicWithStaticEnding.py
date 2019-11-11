@@ -63,8 +63,7 @@ class Fitness(AbstractFitness):
             fitness += 1
             
         return fitness
-        
-        
+      
     def evaluate(self, individual, display_logging = False):
         new_fitness = 0.0
         
@@ -82,6 +81,7 @@ class Fitness(AbstractFitness):
         self.previous_length = new_length
         
         return new_fitness / 4
+
 
 class Mutator():
     
