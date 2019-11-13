@@ -30,11 +30,12 @@ class Fitness(AbstractFitness):
             ## encourage individual regex correctness,
             pattern = re.compile(temp_regex + self.static_ending, re.IGNORECASE)
             matches = pattern.findall(self.text)
-            if len(matches) > 0:
+            converted_matches = list(map(lambda n: float(n), matches))
+            if len(matches) > 0 and self.expected_match in converted_matches:
                 fitness += (( 1 - (i / length_of_individual) ) / length_of_individual)
             else:
                 ## when item is wrong,
-                temp_regex = '(.|\s)' + regex
+                temp_regex = '(?:.|\s)' + regex
             
             regex = temp_regex
             
@@ -54,13 +55,10 @@ class Fitness(AbstractFitness):
         
         # encourage matches, but less is better.
         matches = pattern.findall(self.text)
-        if len(matches) == 1:
-            fitness += ( 1 / len(matches) )
-        
-        # encourage the only match being the correct match.
-        match = pattern.search(self.text)
-        if match is not None and float(match.group(1)) == self.expected_match:
-            fitness += 1
+        converted_matches = list(map(lambda n: float(n), matches))
+        if len(converted_matches) > 0 and self.expected_match in converted_matches:
+            ## punish if the matches arent even the expected match...
+            fitness += ( 1 / len(converted_matches) )
             
         return fitness
       
@@ -80,7 +78,7 @@ class Fitness(AbstractFitness):
         
         self.previous_length = new_length
         
-        return new_fitness / 4
+        return new_fitness / 3
 
 
 class Mutator():
