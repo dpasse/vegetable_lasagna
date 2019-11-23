@@ -4,14 +4,17 @@
 2. Produce regex expressions to pull data points out from each section.
 3. Create a luigi pipeline to handle the process.
 
-#### Notebooks
+#### Notebooks:
 
-- Generate Regex
+- Combined Methods:
+  - poc_split_text_and_build_regex_expressions.ipynb
+
+- Generate Regex:
   - poc_hill_climber.ipynb
   - poc_dynamic_individual.ipynb
   - poc_dynamic_individual_with_static_ending.ipynb
   - poc_generate_multiple_regex_expressions.ipynb
 
-- Split Documents by change in format
+- Split Documents by change in format:
   - poc_convert_text_to_image.ipynb
   - poc_split_text_on_changes_in_format.ipynb
