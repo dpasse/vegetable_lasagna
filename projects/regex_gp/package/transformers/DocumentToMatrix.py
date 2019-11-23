@@ -34,7 +34,7 @@ class BasicDocumentToMatrix():
     for method in pipeline:
       document_as_matrix = method(document_as_matrix)
 
-    return self._fill_in_matrix(document_as_matrix)
+    return document_as_matrix
 
   def _fill_in_matrix(self, document_as_matrix):
     for r, line in enumerate(self.lines_in_document):
