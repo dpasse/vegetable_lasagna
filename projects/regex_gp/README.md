@@ -2,6 +2,7 @@
 
 1. Split a document into sections where each section has similar formatting.
 2. Produce regex expressions to pull data points out from each section.
+3. Create a luigi pipeline to handle the process.
 
 #### Notebooks
 
