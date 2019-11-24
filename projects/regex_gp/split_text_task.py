@@ -1,41 +1,54 @@
 import luigi
 import json
 import numpy as np
+import os
 from pathlib import Path
 
 from package.transformers import DocumentToMatrix
 from package.estimators import CorrelationEstimator
 from package.splitters import SingleThresholdSplitter
 
-
 class SplitTextTask(luigi.Task):
 
-  input_file = luigi.Parameter('input-file')
+  is_complete = False
+  input_directory = luigi.Parameter('input-directory')
 
-  def output(self):
-    path = Path(self.input_file)
-    expected_output_file = r'{}/{}_splits.json'.format(path.parent, path.stem)
-    return luigi.LocalTarget(expected_output_file)
-
+  def requires(self):
+    return None
 
   def run(self):
-    document = ''
-    with open(self.input_file, 'r') as input_document:
-      document = input_document.read()
+    files_to_process = [
+      file
+      for file in os.listdir(self.input_directory)
+      if '_' not in file and file.endswith('.txt')
+    ]
 
-    document_transformer = DocumentToMatrix.BasicDocumentToMatrix(document)
-    estimator = CorrelationEstimator(document_transformer)
-    y = np.array(estimator.evaluate()).flatten().tolist()
+    for file_to_process in files_to_process:
+      path = '{}/{}'.format(
+        self.input_directory,
+        file_to_process
+      )
 
-    splitter = SingleThresholdSplitter(y, .35)
-    sections = splitter.split_document(document_transformer.lines_in_document)
-    output_contents = json.dumps(
-      { i: section for i, section in enumerate(sections) },
-      sort_keys=True
-    )
+      stem = Path(path).stem
 
-    with self.output().open('w') as outfile:
-      outfile.write(output_contents)
+      document = luigi.LocalTarget(path).open('r').read()
+      document_transformer = DocumentToMatrix.BasicDocumentToMatrix(document)
+      estimator = CorrelationEstimator(document_transformer)
+      y = np.array(estimator.evaluate()).flatten().tolist()
+
+      splitter = SingleThresholdSplitter(y, .35)
+      sections = splitter.split_document(document_transformer.lines_in_document)
+
+      for index, section in enumerate(sections):
+        output_file_path = '{}/{}_section_{}.txt'.format(self.input_directory, stem, index)
+        output_target = luigi.LocalTarget(output_file_path)
+        with output_target.open('w') as outfile:
+          outfile.write(section)
+
+      self.is_complete = True
+
+  def complete(self):
+    return self.is_complete
 
 if __name__ == '__main__':
   luigi.run()
