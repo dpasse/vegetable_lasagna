@@ -18,3 +18,7 @@
 - Split Documents by change in format:
   - poc_convert_text_to_image.ipynb
   - poc_split_text_on_changes_in_format.ipynb
+
+- Tasks
+  - Split Documents into Sections: python3 split_text_task.py --local-scheduler SplitTextTask --input-file "./data/test1.txt"
+
