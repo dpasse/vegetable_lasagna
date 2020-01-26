@@ -1,3 +1,0 @@
-numpy
-luigi
-matplotlib
