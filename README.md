@@ -9,5 +9,5 @@
  - iris_gaussian.sav : sklearn gaussian classifier built w/ sklearn
 
 ### projects
- - regex_gp :
  - magnetics :
+ - api :
