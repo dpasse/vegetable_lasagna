@@ -15,7 +15,7 @@
 #### Query:
 ```
 corpus = [
-  [''], -- row is a document
+  '', -- row is a document
 ]
 
 tokenized_corpus = [
