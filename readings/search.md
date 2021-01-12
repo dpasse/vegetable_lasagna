@@ -5,7 +5,7 @@
 #### URI: https://elhamamini.medium.com/how-to-build-a-vertical-search-engine-using-python-f09b137b5db
 #### Github: https://github.com/lhamini/Search_Engine_medium
 #### Points:
-- Generialized search engine, which focuses one many subjects, is not always the most efficent.
+- Generialized search engine, which focuses on many subjects, is not always the most efficent.
 - Vertical search engine focuses on one subject.
 - Post focused on airline crash dataset. Build out a simple vertical search engine.
 - Packages: nltk, rank-bm25
